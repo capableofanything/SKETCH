@@ -4,23 +4,19 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 
-# Color palette for up to 38 joints (we use first 26)
+# Color palette for up to 16 joints (we use first 16)
 color_detailed_description = {
     "green": "1", "dimgray": "2", "blue": "3", "brown": "4", "chartreuse": "5",
     "chocolate": "6", "coral": "7", "crimson": "8", "blueviolet": "9", "darkblue": "10",
     "darkgreen": "11", "firebrick": "12", "gold": "13", "teal": "14", "grey": "15",
-    "indigo": "16", "steelblue": "17", "indianred": "18", "goldenrod": "19", "darkred": "20",
-    "darkorange": "21", "magenta": "22", "maroon": "23", "navy": "24", "olive": "25",
-    "orange": "26", "orchid": "27", "pink": "28", "plum": "29", "purple": "30",
-    "red": "31", "cornflowerblue": "32", "sienna": "33", "darkkhaki": "34", "tan": "35",
-    "dodgerblue": "36", "darkseagreen": "37", "cadetblue": "38"
+    "indigo": "16"
 }
 
 def main():
     """Entry point used for generating train/test images for the full dataset."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    window_size = 16
+    window_size = 40
     stride = 1
     aug = 3
 
@@ -54,7 +50,7 @@ def main():
 
 def draw_image(
         pid,
-        p_norm,  # (window, 3, 26)
+        p_norm,  # (window, 3, 16)
         label,
         base_path,
         bg_color="white",
@@ -111,7 +107,7 @@ def draw_image(
     fig, axs = plt.subplots(3, 1, figsize=(img_width / dpi, img_height / dpi), dpi=dpi, facecolor=bg_color)
     time_axis = np.arange(1, frame + 1)
 
-    num_joints = 26
+    num_joints = 16
     base_colors = list(color_detailed_description.keys())
     plt_colors = base_colors[:num_joints]
 
@@ -196,7 +192,7 @@ def construct_image(
     Parameters
     ----------
     Pdict_list_path : str
-        Path to numpy file containing shape (N, T, 3, 26).
+        Path to numpy file containing shape (N, T, 3, 16).
     labels_path : str
         Path to numpy file containing majority label per window shape (N,).
     base_path : str

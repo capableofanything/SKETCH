@@ -1,4 +1,4 @@
-# 🎨 SKETCH  
+# SKETCH  
 This is the official implementation of  **"Doodle to Detect: A Goofy but Powerful Approach to Skeleton-based Hand Gesture Recognition".**
 
 <p align="left">
@@ -6,7 +6,7 @@ This is the official implementation of  **"Doodle to Detect: A Goofy but Powerfu
   <a href="#"><img src="https://img.shields.io/badge/License-MIT-black.svg" alt="License"></a>
 </p>
 
-## 📑 Table of Contents
+## Table of Contents
 - [Overview](#overview)
 - [Development Progress](#development-progress)
 - [Results](#results)
@@ -18,7 +18,7 @@ This is the official implementation of  **"Doodle to Detect: A Goofy but Powerfu
 
 ---
 
-## 🧠 Overview <a id="overview"></a>
+## Overview <a id="overview"></a>
 SKETCH is a novel skeleton-based hand gesture recognition framework that directly transforms raw 4D skeleton sequences into interpretable visual graph representations. It introduces a learnable Dynamic Range Embedding (DRE) to preserve motion magnitudes and applies per-window normalization for robustness to viewpoint and body variations. Leveraging pre-trained vision backbones, SKETCH achieves state-of-the-art accuracy and generalization on SHREC’19 and SHREC’22 benchmarks.
 
 <p align="center">
@@ -28,17 +28,16 @@ SKETCH is a novel skeleton-based hand gesture recognition framework that directl
 
 ---
 
-## 🛠️ Development Progress <a id="development-progress"></a>
+## Development Progress <a id="development-progress"></a>
 ### Core Implementation  
 - [x] Demo script
-- [ ] Release pretrained model (SHREC'22)  
-- [ ] Add training pipeline (SHREC'22)  
-- [ ] Release pretrained model (SHREC'19)  
-- [ ] Add training pipeline (SHREC'19)  
+- [x] Add training pipeline (SHREC'22)  
+- [x] Release pretrained model (SHREC'22)  
+- [x] Add post processing pipeline (SHREC'22)
 
 ---
 
-## 📊 Results  <a id="results"></a>
+## Results  <a id="results"></a>
 
 <p align="left">
   <img src="assets/joint_attention.svg" alt="SKETCH overview / pipeline" width="65%">
@@ -64,7 +63,8 @@ SKETCH is a novel skeleton-based hand gesture recognition framework that directl
 | **SKETCH (V-L-16-384)** | 0.90 | 0.03 | 0.0176 | 57 |  |  |  |  | ✓ |
 | **SKETCH (S-S-4-7-224)** | 0.88 | 0.04 | 0.0039 | 256 |  |  |  |  | ✓ |
 | **SKETCH (S-B-4-12-384)** | 0.91 | 0.03 | 0.0091 | 110 |  |  |  |  | ✓ |
-| **SKETCH (S-L-16-384)** | **0.92** | **0.02** | 0.0142 | 70 |  |  |  |  | ✓ |
+| **SKETCH (S-L-16-384)** | 0.92** | 0.02 | 0.0142 | 70 |  |  |  |  | ✓ |
+| **SKETCH (S-L-16-384) + Aug** | **0.93** | **0.01** | 0.0142 | 70 |  |  |  |  | ✓ |
 
 ### Comparison on SHREC’22  
 | **Method** | **DR↑** | **FP↓** | **JI↑** | **Delay (fr.)** | **Time (s)** | **JCD** | **FD** | **Adj** | **Plot** |
@@ -80,12 +80,13 @@ SKETCH is a novel skeleton-based hand gesture recognition framework that directl
 | TN-FSM+JD | 0.77 | 0.23 | 0.63 | 10.0 | 0.0046 | ✓ |  | ✓ |  |
 | Causal TCN | 0.80 | 0.29 | 0.68 | 19.0 | 0.0280 |  |  | ✓ |  |
 | DDNet | 0.88 | 0.16 | 0.78 | 8.0 | 0.0022 | ✓ | ✓ |  |  |
-| OO-dMVMT | **0.92** | 0.09 | 0.85 | 8.0 | 0.0041 | ✓ | ✓ |  |  |
+| OO-dMVMT | 0.92 | 0.09 | 0.85 | 8.0 | 0.0041 | ✓ | ✓ |  |  |
 | **SKETCH (S-B-4-12-384)** | 0.91 | **0.06** | 0.86 | 8.0 | 0.0097 |  |  |  | ✓ |
-| **SKETCH (S-L-4-12-384)** | **0.92** | 0.07 | **0.87** | 8.0 | 0.0124 |  |  |  | ✓ |
+| **SKETCH (S-L-4-12-384)** | 0.92 | 0.07 | 0.87 | 8.0 | 0.0124 |  |  |  | ✓ |
+| **SKETCH (S-L-4-12-384) + Aug** | **0.95** | **0.06** | **0.91** | 8.0 | 0.0124 |  |  |  | ✓ |
 
 ---
-## ⚙️ Installation  <a id="installation"></a>
+## Installation  <a id="installation"></a>
 ```bash
 conda create -n sketch python=3.7 -y
 conda activate sketch
@@ -93,7 +94,7 @@ git clone https://github.com/capableofanything/SKETCH.git
 cd SKETCH
 pip install -r requirements.txt
 ```
-### 📂 Dataset Structure
+### Dataset Structure
 
 #### SHREC'22
 
@@ -115,15 +116,31 @@ SKETCH/
             └── ...
 ```
 
-### 🚀 Demo Script
+### Demo Script
 
 The `demo.py` script generates a small sample of **SHREC'22** windows and corresponding stacked coordinate images.  
 ```bash
 python demo.py --num_files 2 --window 16 --stride 1
 ```
 ---
+### Full Pipeline Execution
 
-## 🤝 Community & Contribution   <a id="community--contribution"></a>
+To reproduce the full SHREC'22 workflow, run the following scripts in order:
+
+   ```bash
+   python prepare_window/shrec22_prepare_window.py
+   python draw/shrec22_draw_3stack.py
+   python train.py
+```
+### Pretrained Models
+
+We provide pretrained weights for SHREC'22.  
+You can download them from the following link:
+
+🔗 **[Download Pretrained Models (Google Drive)](https://drive.google.com/drive/folders/1IkpdWFhP9RxeuFsBEivQ1RlDkz-84kA6)**
+
+
+## Community & Contribution   <a id="community--contribution"></a>
 We encourage everyone to try applying **SKETCH** to other human action recognition tasks  
 and share your results or insights with the community!
 
@@ -131,28 +148,22 @@ If you adapt or extend our framework, feel free to open an issue,
 start a discussion, or submit a pull request — we’d love to hear from you.
 
 ---
-## 📚 Citation  <a id="citation"></a>
-
-### Note  
-This paper has been **accepted to NeurIPS 2025 (camera-ready in progress)**.  
-The final citation will be updated upon publication.  
+## Citation  <a id="citation"></a>
 
 ```bibtex
-@inproceedings{SKETCH,
-  title     = {Doodle to Detect: A Goofy but Powerful Approach to Skeleton-based Hand Gesture Recognition},
-  author    = {Han, SangHoon and Lee, Seonho and Nam, Hyeok and Park, JaeHyeon and Cha, MinHee and Kim, MinGeol and Lee, HyunSe and Ahn, SangYeon and Chae, MoonJu and Cho, Sung In},
-  booktitle = {NeurIPS},
-  year      = {2025},
-  note      = {(accepted)}
+@inproceedings{handoodle,
+  title={Doodle to Detect: A Goofy but Powerful Approach to Skeleton-based Hand Gesture Recognition},
+  author={Han, Sang Hoon and Lee, Seonho and Nam, Hyeok and Park, Jae Hyeon and Cha, Min Hee and Kim, Min Geol and Lee, Hyunse and Ahn, Sangyeon and Cho, Sung In and others},
+  booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems}
 }
 ```
 
 ---
-## 🪪 License <a id="license"></a>
+## License <a id="license"></a>
 This project is licensed under the MIT License.
 
 ---
-## 📧 Contact  <a id="contact"></a>
+## Contact  <a id="contact"></a>
 For questions, collaborations, or feedback, please contact:  
 **SangHoon Han** (Co-first Authors) — [leo4102@sogang.ac.kr](mailto:leo4102@sogang.ac.kr)  
 **Seonho Lee** (Co-first Authors) — [sunhozizi@sogang.ac.kr](mailto:sunhozizi@sogang.ac.kr)  

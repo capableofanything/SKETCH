@@ -63,7 +63,7 @@ SKETCH is a novel skeleton-based hand gesture recognition framework that directl
 | **SKETCH (V-L-16-384)** | 0.90 | 0.03 | 0.0176 | 57 |  |  |  |  | ✓ |
 | **SKETCH (S-S-4-7-224)** | 0.88 | 0.04 | 0.0039 | 256 |  |  |  |  | ✓ |
 | **SKETCH (S-B-4-12-384)** | 0.91 | 0.03 | 0.0091 | 110 |  |  |  |  | ✓ |
-| **SKETCH (S-L-16-384)** | 0.92** | 0.02 | 0.0142 | 70 |  |  |  |  | ✓ |
+| **SKETCH (S-L-16-384)** | 0.92 | 0.02 | 0.0142 | 70 |  |  |  |  | ✓ |
 | **SKETCH (S-L-16-384) + Aug** | **0.93** | **0.01** | 0.0142 | 70 |  |  |  |  | ✓ |
 
 ### Comparison on SHREC’22  

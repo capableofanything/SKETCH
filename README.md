@@ -131,6 +131,7 @@ To reproduce the full SHREC'22 workflow, run the following scripts in order:
    python prepare_window/shrec22_prepare_window.py
    python draw/shrec22_draw_3stack.py
    python train.py
+   python post_processing\shrec22\post_processing.py
 ```
 ### Pretrained Models
 
